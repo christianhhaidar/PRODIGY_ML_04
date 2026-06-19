@@ -21,11 +21,6 @@ from tensorflow.keras.layers import (
 )
 from tensorflow.keras.models import Sequential
 
-
-# =========================================================
-# Configuration
-# =========================================================
-
 DATASET_PATH = Path(r"D:\leapGestRecog")
 
 IMG_SIZE = 64
@@ -42,11 +37,6 @@ VALID_EXTENSIONS = {
 
 np.random.seed(RANDOM_STATE)
 tf.random.set_seed(RANDOM_STATE)
-
-
-# =========================================================
-# Locate dataset folders
-# =========================================================
 
 def find_subject_folders(dataset_path):
     """
@@ -73,7 +63,6 @@ def find_subject_folders(dataset_path):
     if subject_folders:
         return dataset_path, subject_folders
 
-    # Handle an extra nested leapGestRecog folder.
     nested_path = dataset_path / "leapGestRecog"
 
     if nested_path.is_dir():
@@ -131,11 +120,6 @@ def find_gesture_names(subject_folders):
             )
 
     return gesture_names
-
-
-# =========================================================
-# Load images
-# =========================================================
 
 def load_dataset(subject_folders, gesture_names):
     gesture_to_label = {
@@ -217,11 +201,6 @@ def load_dataset(subject_folders, gesture_names):
 
     return images, labels, subject_groups
 
-
-# =========================================================
-# Dataset split
-# =========================================================
-
 def split_dataset_by_subject(images, labels, subject_groups):
     """
     Keep different subjects in the training, validation, and testing
@@ -295,11 +274,6 @@ def split_dataset_by_subject(images, labels, subject_groups):
         labels[test_indices],
     )
 
-
-# =========================================================
-# CNN model
-# =========================================================
-
 def build_model(number_of_classes):
     model = Sequential([
         Input(shape=(IMG_SIZE, IMG_SIZE, 1)),
@@ -349,11 +323,6 @@ def build_model(number_of_classes):
     )
 
     return model
-
-
-# =========================================================
-# Main program
-# =========================================================
 
 def main():
     dataset_root, subject_folders = find_subject_folders(
@@ -431,10 +400,6 @@ def main():
         verbose=1,
     )
 
-    # =====================================================
-    # Evaluation
-    # =====================================================
-
     test_loss, test_accuracy = model.evaluate(
         x_test,
         y_test,
@@ -473,10 +438,6 @@ def main():
     print("=====================")
     print(report)
 
-    # =====================================================
-    # Confusion matrix
-    # =====================================================
-
     matrix = confusion_matrix(
         y_test,
         predicted_classes,
@@ -508,10 +469,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # =====================================================
-    # Accuracy graph
-    # =====================================================
-
     plt.figure(figsize=(9, 6))
 
     plt.plot(
@@ -532,10 +489,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # =====================================================
-    # Loss graph
-    # =====================================================
-
     plt.figure(figsize=(9, 6))
 
     plt.plot(
@@ -555,10 +508,6 @@ def main():
     plt.grid(alpha=0.3)
     plt.tight_layout()
     plt.show()
-
-    # =====================================================
-    # Sample predictions
-    # =====================================================
 
     sample_count = min(
         12,
@@ -637,7 +586,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # Save directly in the current working directory.
     model.save(
         "hand_gesture_recognition_model.keras"
     )
