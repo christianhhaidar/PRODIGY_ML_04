@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# The dataset is downloaded separately from Kaggle.
+leapGestRecog/
+dataset/
+data/
