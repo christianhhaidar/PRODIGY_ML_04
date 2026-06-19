@@ -1,0 +1,177 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1781849761.071310   29708 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1781849763.684764   29708 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Dataset root: D:\leapGestRecog
+Subject folders: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09']
+Gesture classes: ['01_palm', '02_l', '03_fist', '04_fist_moved', '05_thumb', '06_index', '07_ok', '08_palm_moved', '09_c', '10_down']
+Number of classes: 10
+Loading subject: 00
+Loading subject: 01
+Loading subject: 02
+Loading subject: 03
+Loading subject: 04
+Loading subject: 05
+Loading subject: 06
+Loading subject: 07
+Loading subject: 08
+Loading subject: 09
+
+Dataset Information
+===================
+Total images: 20000
+Skipped images: 0
+Image shape: (20000, 64, 64, 1)
+Label shape: (20000,)
+Number of classes: 10
+Gesture classes: ['01_palm', '02_l', '03_fist', '04_fist_moved', '05_thumb', '06_index', '07_ok', '08_palm_moved', '09_c', '10_down']
+
+Dataset Split
+=============
+Training subjects: [np.str_('00'), np.str_('03'), np.str_('04'), np.str_('05'), np.str_('06'), np.str_('07'), np.str_('09')]
+Validation subjects: [np.str_('02')]
+Testing subjects: [np.str_('01'), np.str_('08')]
+Training samples: 14000
+Validation samples: 2000
+Testing samples: 4000
+I0000 00:00:1781849793.501399   29708 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+
+CNN Model
+=========
+Model: "sequential"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                      │ (None, 62, 62, 32)          │             320 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization                  │ (None, 62, 62, 32)          │             128 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d (MaxPooling2D)         │ (None, 31, 31, 32)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_1 (Conv2D)                    │ (None, 29, 29, 64)          │          18,496 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_1                │ (None, 29, 29, 64)          │             256 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_1 (MaxPooling2D)       │ (None, 14, 14, 64)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_2 (Conv2D)                    │ (None, 12, 12, 128)         │          73,856 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_2                │ (None, 12, 12, 128)         │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_2 (MaxPooling2D)       │ (None, 6, 6, 128)           │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ flatten (Flatten)                    │ (None, 4608)                │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 128)                 │         589,952 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 128)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 10)                  │           1,290 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 684,810 (2.61 MB)
+ Trainable params: 684,362 (2.61 MB)
+ Non-trainable params: 448 (1.75 KB)
+Epoch 1/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 60ms/step - accuracy: 0.7390 - loss: 0.8782 
+Epoch 1: val_loss improved from None to 2.65822, saving model to best_hand_gesture_model.keras
+
+Epoch 1: finished saving model to best_hand_gesture_model.keras
+438/438 ━━━━━━━━━━━━━━━━━━━━ 29s 63ms/step - accuracy: 0.8892 - loss: 0.3448 - val_accuracy: 0.3855 - val_loss: 2.6582
+Epoch 2/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9833 - loss: 0.0516 
+Epoch 2: val_loss improved from 2.65822 to 0.82423, saving model to best_hand_gesture_model.keras
+
+Epoch 2: finished saving model to best_hand_gesture_model.keras
+438/438 ━━━━━━━━━━━━━━━━━━━━ 27s 60ms/step - accuracy: 0.9859 - loss: 0.0437 - val_accuracy: 0.8395 - val_loss: 0.8242
+Epoch 3/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9874 - loss: 0.0344 
+Epoch 3: val_loss improved from 0.82423 to 0.05451, saving model to best_hand_gesture_model.keras
+
+Epoch 3: finished saving model to best_hand_gesture_model.keras
+438/438 ━━━━━━━━━━━━━━━━━━━━ 26s 60ms/step - accuracy: 0.9896 - loss: 0.0309 - val_accuracy: 0.9765 - val_loss: 0.0545
+Epoch 4/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9898 - loss: 0.0320 
+Epoch 4: val_loss did not improve from 0.05451
+438/438 ━━━━━━━━━━━━━━━━━━━━ 26s 60ms/step - accuracy: 0.9906 - loss: 0.0287 - val_accuracy: 0.9070 - val_loss: 0.4057
+Epoch 5/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 59ms/step - accuracy: 0.9940 - loss: 0.0193     
+Epoch 5: val_loss did not improve from 0.05451
+438/438 ━━━━━━━━━━━━━━━━━━━━ 27s 61ms/step - accuracy: 0.9950 - loss: 0.0158 - val_accuracy: 0.9265 - val_loss: 0.1461
+Epoch 6/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9957 - loss: 0.0132     
+Epoch 6: val_loss did not improve from 0.05451
+438/438 ━━━━━━━━━━━━━━━━━━━━ 26s 60ms/step - accuracy: 0.9961 - loss: 0.0134 - val_accuracy: 0.9225 - val_loss: 0.2460
+Epoch 7/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9961 - loss: 0.0123 
+Epoch 7: val_loss did not improve from 0.05451
+438/438 ━━━━━━━━━━━━━━━━━━━━ 26s 60ms/step - accuracy: 0.9965 - loss: 0.0122 - val_accuracy: 0.9240 - val_loss: 0.3650
+Epoch 8/25
+437/438 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step - accuracy: 0.9946 - loss: 0.0247     
+Epoch 8: val_loss did not improve from 0.05451
+438/438 ━━━━━━━━━━━━━━━━━━━━ 26s 60ms/step - accuracy: 0.9935 - loss: 0.0299 - val_accuracy: 0.8560 - val_loss: 1.0009
+Epoch 8: early stopping
+Restoring model weights from the end of the best epoch: 3.
+125/125 ━━━━━━━━━━━━━━━━━━━━ 2s 13ms/step - accuracy: 0.7803 - loss: 2.5476    
+125/125 ━━━━━━━━━━━━━━━━━━━━ 2s 13ms/step  
+
+Model Evaluation
+================
+Test accuracy: 78.03%
+Test loss: 2.547629
+
+Classification Report
+=====================
+               precision    recall  f1-score   support
+
+      01_palm     0.5602    0.8025    0.6598       400
+         02_l     0.8543    0.8650    0.8596       400
+      03_fist     0.9719    0.6925    0.8088       400
+04_fist_moved     0.9550    0.5300    0.6817       400
+     05_thumb     0.8312    0.4925    0.6185       400
+     06_index     0.8285    0.9300    0.8763       400
+        07_ok     0.9467    0.8000    0.8672       400
+08_palm_moved     0.8359    0.8150    0.8253       400
+         09_c     0.9284    0.8750    0.9009       400
+      10_down     0.5525    1.0000    0.7117       400
+
+     accuracy                         0.7802      4000
+    macro avg     0.8265    0.7802    0.7810      4000
+ weighted avg     0.8265    0.7802    0.7810      4000
+
+
+Confusion Matrix
+================
+[[321  10   0   2   0   0   4   7   6  50]
+ [  3 346   6   0  28   0   0   0   0  17]
+ [ 28  23 277   8   9   3  13   0   0  39]
+ [167   0   0 212   0   0   0   0  21   0]
+ [  1   0   0   0 197   0   0   0   0 202]
+ [  0  26   2   0   0 372   0   0   0   0]
+ [  7   0   0   0   0   0 320  57   0  16]
+ [  0   0   0   0   0  74   0 326   0   0]
+ [ 46   0   0   0   3   0   1   0 350   0]
+ [  0   0   0   0   0   0   0   0   0 400]]
+
+Sample Predictions
+==================
+Sample 1: Actual=03_fist, Predicted=03_fist, Confidence=100.0%
+Sample 2: Actual=08_palm_moved, Predicted=08_palm_moved, Confidence=100.0%
+Sample 3: Actual=03_fist, Predicted=03_fist, Confidence=100.0%
+Sample 4: Actual=10_down, Predicted=10_down, Confidence=100.0%
+Sample 5: Actual=05_thumb, Predicted=05_thumb, Confidence=100.0%
+Sample 6: Actual=01_palm, Predicted=01_palm, Confidence=100.0%
+Sample 7: Actual=09_c, Predicted=09_c, Confidence=100.0%
+Sample 8: Actual=02_l, Predicted=02_l, Confidence=100.0%
+Sample 9: Actual=01_palm, Predicted=01_palm, Confidence=100.0%
+Sample 10: Actual=05_thumb, Predicted=10_down, Confidence=99.9%
+Sample 11: Actual=08_palm_moved, Predicted=08_palm_moved, Confidence=100.0%
+Sample 12: Actual=10_down, Predicted=10_down, Confidence=100.0%
+
+Task completed successfully.
+Model saved as: hand_gesture_recognition_model.keras
+Best model saved as: best_hand_gesture_model.keras
